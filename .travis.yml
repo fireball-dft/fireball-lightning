@@ -15,11 +15,9 @@ install:
     - pwd
     - cd ..
     - git clone https://github.com/fireball-dft/fireball-master.git
-    - cd fireball-lightning/src
-    - make lightning.x
-    - make cleanall
-    - make llightning.x
-
+    - cd fireball-lightning
+    - ./configure
+    - make distcheck
 
 script: true
     # make check PFUNIT=pfunit

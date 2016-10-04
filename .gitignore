@@ -31,6 +31,10 @@
 *.log
 *.x
 *.xsf
-.project
+*~
 .svn
 results
+*Makefile
+config.status
+config.h
+autom4te.cache

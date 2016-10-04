@@ -48,11 +48,15 @@ AS_IF([test "x$enable_METHOD" = "xKPOINTS"], [
 ])
 AS_IF([test "x$enable_METHOD" = "xMDET"], [
   AC_DEFINE([MDET], 1, [METHOD=MDET enabled])
+  AC_DEFINE([GAMMA], 1, [METHOD=MDET enabled and MDET is also GAMMA])
   METHOD=MDET
 ])
 AS_IF([test "x$enable_METHOD" = "xKS"], [
   AC_DEFINE([KS], 1, [METHOD=KS enabled])
   METHOD=KS
+])
+AS_IF([test "x${METHOD}" = "xGAMMA"], [
+  AC_DEFINE([GAMMA], 1, [METHOD=GAMMA enabled])
 ])
 AC_SUBST([METHOD],[${METHOD}])
 
@@ -69,6 +73,16 @@ AS_IF([test "x$enable_XC" = "xLIBXC"], [
   XC=LIBXC
 ])
 AC_SUBST([XC],[${XC}])
+
+dnl XCTHEORY
+AC_ARG_ENABLE([XCTHEORY],
+    AS_HELP_STRING([--enable-XCTHEORY=[ARG]], [Select XC Theory Level MCWEDA (default) or HORSFIELD ]))
+XCTHEORY=MCWEDA
+AS_IF([test "x$enable_XCTHEORY" = "xHORSFIELD"], [
+  AC_DEFINE([HORSFIELD], 1, [XCTHEORY=HORSFIELD enabled])
+  XCTHEORY=HORSFIELD
+])
+AC_SUBST([XCTHEORY],[${XCTHEORY}])
 
 dnl MACHINE
 AC_ARG_ENABLE([MACHINE],
@@ -167,14 +181,15 @@ echo \
  Compiler: '${FC} ${FCFLAGS} ${CPPFLAGS}'
 
  Package features:
-   THEORY : ${THEORY}
-   METHOD : ${METHOD}
-   XC     : ${XC}
+   THEORY   : ${THEORY}
+   METHOD   : ${METHOD}
+   XC       : ${XC}
+   XCTHEORY : ${XCTHEORY}
 
-   OPENMP : ${OPENMP}
-   MPI    : ${MPI}
-   DEBUG  : ${DEBUG}
-   OPT    : ${OPT}
+   OPENMP   : ${OPENMP}
+   MPI      : ${MPI}
+   DEBUG    : ${DEBUG}
+   OPT      : ${OPT}
 
    MACHINE  : ${MACHINE}
    COMPILER : ${COMPILER}

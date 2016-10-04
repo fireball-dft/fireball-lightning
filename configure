@@ -599,6 +599,7 @@ MPI
 OPENMP
 LINALG
 MACHINE
+XCTHEORY
 XC
 METHOD
 THEORY
@@ -655,6 +656,7 @@ enable_option_checking
 enable_THEORY
 enable_METHOD
 enable_XC
+enable_XCTHEORY
 enable_MACHINE
 enable_LINALG
 enable_OPENMP
@@ -1286,6 +1288,7 @@ Optional Features:
   --enable-METHOD=ARG     Select METHOD (GAMMA (default), KPOINTS, MDET or KS)
   --enable-XC=ARG         Select XC (eXchange and Correlation) LDA (default),
                           BLYP or LIBXC
+  --enable-XCTHEORY=ARG   Select XC Theory Level MCWEDA (default) or HORSFIELD
   --enable-MACHINE=ARG    Select MACHINE (GENERIC (default), FIREBALL, SPRUCE,
                           etc)
   --enable-LINALG=ARG     Select Linear Algebra (MKL (default), LAPACK)
@@ -2547,6 +2550,9 @@ if test "x$enable_METHOD" = "xMDET"; then :
 
 $as_echo "#define MDET 1" >>confdefs.h
 
+
+$as_echo "#define GAMMA 1" >>confdefs.h
+
   METHOD=MDET
 
 fi
@@ -2556,6 +2562,13 @@ if test "x$enable_METHOD" = "xKS"; then :
 $as_echo "#define KS 1" >>confdefs.h
 
   METHOD=KS
+
+fi
+if test "x${METHOD}" = "xGAMMA"; then :
+
+
+$as_echo "#define GAMMA 1" >>confdefs.h
+
 
 fi
 METHOD=${METHOD}
@@ -2584,6 +2597,23 @@ $as_echo "#define LIBXC 1" >>confdefs.h
 
 fi
 XC=${XC}
+
+
+# Check whether --enable-XCTHEORY was given.
+if test "${enable_XCTHEORY+set}" = set; then :
+  enableval=$enable_XCTHEORY;
+fi
+
+XCTHEORY=MCWEDA
+if test "x$enable_XCTHEORY" = "xHORSFIELD"; then :
+
+
+$as_echo "#define HORSFIELD 1" >>confdefs.h
+
+  XCTHEORY=HORSFIELD
+
+fi
+XCTHEORY=${XCTHEORY}
 
 
 # Check whether --enable-MACHINE was given.
@@ -4554,14 +4584,15 @@ echo \
  Compiler: '${FC} ${FCFLAGS} ${CPPFLAGS}'
 
  Package features:
-   THEORY : ${THEORY}
-   METHOD : ${METHOD}
-   XC     : ${XC}
+   THEORY   : ${THEORY}
+   METHOD   : ${METHOD}
+   XC       : ${XC}
+   XCTHEORY : ${XCTHEORY}
 
-   OPENMP : ${OPENMP}
-   MPI    : ${MPI}
-   DEBUG  : ${DEBUG}
-   OPT    : ${OPT}
+   OPENMP   : ${OPENMP}
+   MPI      : ${MPI}
+   DEBUG    : ${DEBUG}
+   OPT      : ${OPT}
 
    MACHINE  : ${MACHINE}
    COMPILER : ${COMPILER}

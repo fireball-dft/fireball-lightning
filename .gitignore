@@ -27,14 +27,19 @@
 *.out
 *.app
 
+#Autoconf files
+config.h
+config.status
+autom4te.cache
+*Makefile
+
 # Fireball specials
 *.log
 *.x
 *.xsf
-*~
+.project
 .svn
+.DS_Store
+*~
+ARCHIVE
 results
-*Makefile
-config.status
-config.h
-autom4te.cache
